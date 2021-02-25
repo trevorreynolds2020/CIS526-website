@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Kansas Computer Science Standards</title>
+        <link rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <h1 id="KCSS" align="center">Kansas Computer Science Standards</h1>
+        <table id="information">
+            
+            <% var count = 0; %>
+          
+            <!-- Category -->
+            <tr id="category">
+              <th>Identifier</th>
+              <th>Description</th>
+              <th>Summary</th>
+              <th>Concept</th>
+              <th>Subconcept</th>
+              <th>Practices</th>
+            </tr>
+
+          <!-- Desktop view -->
+            <% standards.forEach(function(standard) { %>
+                <tr class="desktop" id="desktop">
+                  <th><%= standard.identifier %></th>
+                  <th><%= standard.description %></th>
+                  <th><%= standard.summary %></th>
+                  <th><%= standard.concept %></th>
+                  <th><%= standard.subconcept %></th>
+                  <th><%= standard.practices %></th>
+                </tr>
+            <% }) %>
+          
+            <!-- Mobile view -->
+            <% standards.forEach(function(standard) { %>
+                <tr  id="gray-background-mobile">
+                  <th><%= standard.identifier %></th>
+                  <th><%= standard.description %><br><br></th>
+                </tr>
+                <tr colspan="2" id=<%="mobile-"+count.toString()%>>
+                  <td id=<%=count%> colspan="2" ><button colspan="2" type="button" id="more-button"  onclick="more(<%=count%>)"> more... </button></td>
+                </tr>
+                <tr id="white-background-mobile-more" colspan="2">
+                  <td colspan="2"><%= standard.summary %></td>
+                </tr>
+                <tr id="white-background-mobile-more">
+                  <td colspan="2"><%=standard.concept%></td>
+                </tr>
+                <tr id="white-background-mobile-more">
+                  <td colspan="2"><%=standard.subconcept%></td>
+                </tr>
+                <tr id="white-background-mobile-more">
+                  <td colspan="2"><%=standard.practices%></td>
+                </tr>
+                <tr id=<%="less-"+count.toString()%>>
+                  <td id=<%=count%> colspan="2" ><button colspan="2" type="button" id="less-button"  onclick="less(<%=count%>)"> less... </button></td>
+                </tr>
+                <% count += 1; %>       
+            <% }) %>
+          
+          
+            
+        </table> 
+    </body>
+  
+  
+      <script>
+       
+       function more(count){
+          var table = document.getElementById("information");
+          for(var i = 0; i < table.rows.length; i++){
+            if(table.rows[i].id.includes("mobile-")){
+              var rowID = table.rows[i].id.substring(7);
+              if(rowID == count){
+                if(!table.rows[i].id.substring(0,7).includes("desktop")){ //ignore all the desktop rows    !table.rows[i].id.includes("desktop")
+                  table.rows[i].style.display = "none";
+                  table.rows[i+1].style.display = "inline";
+                  table.rows[i+2].style.display = "inline";
+                  table.rows[i+3].style.display = "inline";
+                  table.rows[i+4].style.display = "inline";
+                  table.rows[i+5].style.display = "inline";
+                }
+              }
+            }
+          }
+        };
+        
+        function less(count){
+          var table = document.getElementById("information");
+          for(var i = 0; i < table.rows.length; i++){
+            if(table.rows[i].id.includes("less-")){
+              var rowID = table.rows[i].id.substring(5);
+              if(rowID == count){
+                if(!table.rows[i].id.substring(0,5).includes("desktop")){ //ignore all the desktop rows    
+                  table.rows[i].style.display = "none";
+                  table.rows[i-1].style.display = "none";
+                  table.rows[i-2].style.display = "none";
+                  table.rows[i-3].style.display = "none";
+                  table.rows[i-4].style.display = "none";          
+                  table.rows[i-5].style.display = "inline";
+                }
+               }
+            }
+          }
+        };
+      </script>
+    
+    <style>
+body{  
+  font-family:'Roboto Mono',monospace;
+}
+
+#information {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+}
+
+#information,td,th {
+  border-collapse: collapse;
+}
+
+th,td {
+  padding: 5px;
+  border: solid 1px;
+  font-family:'Roboto Mono',monospace;
+
+}
+
+#information td:nth-child(1){
+  width: 17%;
+}
+
+#information td:nth-child(2){
+  width: 49%;
+}
+
+#information td:nth-child(3){
+  width: 17%;
+}
+
+#information td:nth-child(4){
+  width: 17%;
+}
+
+#information th:nth-child(1){
+  background-color:lightgray;
+}
+
+#category{
+  background-color: lightgray;
+}
+
+@media (max-width:700px){
+
+  #information td, th{
+    border: solid 0px;
+  } 
+  #desktop{
+    display:none;
+  }
+  #category{
+    display: none;
+  }
+
+}
+
+@media (min-width: 700px){
+  .mobile{
+    display:none;
+  }
+  #white-background-mobile{
+    display: none;
+  }
+  #gray-background-mobile{
+    display: none;
+  }
+  #more-button{
+    display: none;
+  }
+  tr[id*="mobile-"]{
+    display: none;
+  }
+}
+
+#white-background-mobile-more{
+  background-color: white;
+}
+
+#gray-background-mobile{
+  background-color: lightgray;
+}
+
+#more-button{
+  border: none;
+  background-color: white;
+}
+
+#less-button{
+  border: none;
+  background-color: white;
+}
+
+.expanded-mobile-view{
+  display: none;
+}
+tr[id*="white-background-mobile-more"]{
+    display: none;
+}
+
+tr[id*="less-"]{
+    display: none;
+}
+      
+#white-background{
+  background-color: white;
+}
+
+
+
+    </style>
+</html>

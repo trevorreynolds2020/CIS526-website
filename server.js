@@ -2,7 +2,7 @@ const http = require('http');
 const handleRequest = require('./src/handle-request');
 require('better-sqlite3');
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 var server = http.createServer(handleRequest);
 
 
